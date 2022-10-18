@@ -1,55 +1,81 @@
-import { Link, Navigate, Route, Routes } from "react-router-dom";
-import { Button, Checkbox, Form, Input, Layout, Menu } from "antd";
+import { useState } from "react";
+import { Button, Form, Input,  } from "antd";
 import "antd/dist/antd.css";
-
-import { Content, Footer, Header } from "antd/lib/layout/layout";
-import Customers from "./Customers";
-import LoginPage from "./LoginPage";
+import MainPage from "./MainPage";
 
 function App() {
-  const items = [
-    { label: <Link to="/">Home</Link>, key: "1" },
-    {
-      label: <Link to="/login">Customers</Link>,
-      key: "2",
-    },
-    
-  ];
-  return (
-    <>
-      <Layout>
-        <Header>
-          <Menu
-            theme="dark"
-            mode="horizontal"
-            defaultSelectedKeys={["1"]}
-            items={items}
-          />
-        </Header>
-        <Content
-          className="site-layout"
-          style={{ padding: "0 50px", marginTop: "20px" }}
+  const [userLoginStatus, setuserLoginStatus] = useState(false);
+
+  const onFinish = (values) => {
+    if ((values.username === "erkut") & (values.password === "123")) {
+      setuserLoginStatus(true);
+    }
+  };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
+
+  const form = (
+    <div
+      style={{ marginTop: "100px", display: "flex", justifyContent: "center" }}
+    >
+      <Form
+        name="basic"
+        labelCol={{
+          span: 8,
+        }}
+        wrapperCol={{
+          span: 16,
+        }}
+        initialValues={{
+          remember: true,
+        }}
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+        autoComplete="off"
+      >
+        <Form.Item
+          label="Username"
+          name="username"
+          rules={[
+            {
+              required: true,
+              message: "Please input your username!",
+            },
+          ]}
         >
-          <div
-            className="site-layout-background"
-            style={{ padding: 24, minHeight: 380 }}
-          >
-            <Routes>
-              <Route
-                path="/login"
-                element={
-                  <LoginPage>
-                    <Customers />
-                  </LoginPage>
-                }
-              ></Route>
-            </Routes>
-          </div>
-        </Content>
-        <Footer></Footer>
-      </Layout>
-    </>
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Password"
+          name="password"
+          rules={[
+            {
+              required: true,
+              message: "Please input your password!",
+            },
+          ]}
+        >
+          <Input.Password />
+        </Form.Item>
+
+        <Form.Item
+          wrapperCol={{
+            offset: 8,
+            span: 16,
+          }}
+        >
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
+        </Form.Item>
+      </Form>
+    </div>
   );
+
+  return <div>{userLoginStatus ? <MainPage /> : form}</div>;
 }
 
 export default App;

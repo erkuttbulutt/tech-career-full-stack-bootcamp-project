@@ -1,11 +1,11 @@
-import { Button, Table, Modal } from "antd";
+import { Button, Table } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { ExclamationCircleOutlined } from "@ant-design/icons";
-const { confirm } = Modal;
+import { useNavigate } from "react-router-dom";
 
 function Customers() {
   const [customers, setcustomers] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getCustomers();
@@ -25,7 +25,13 @@ function Customers() {
       });
   };
 
-  const details = (id) => {};
+  const details = (id) => {
+    navigate(`/customers/${id}`);
+  };
+
+  const update = (id) => {
+    navigate(`/customerUpdate/${id}`);
+  };
 
   let columns = [
     {
@@ -50,11 +56,7 @@ function Customers() {
       title: "Delete",
       dataIndex: "id",
       render: (id) => (
-        <Button
-          type="primary-outline"
-          danger
-          onClick={() => deleteCustomer(id)}
-        >
+        <Button type="primary" danger onClick={() => deleteCustomer(id)}>
           Delete
         </Button>
       ),
@@ -62,12 +64,20 @@ function Customers() {
     {
       title: "Details",
       dataIndex: "id",
-      render: (id) => <Button onClick={() => details(id)}>Details</Button>,
+      render: (id) => (
+        <Button onClick={() => details(id)} type="primary">
+          Details
+        </Button>
+      ),
     },
     {
       title: "Update",
       dataIndex: "id",
-      render: () => <Button>Update</Button>,
+      render: (id) => (
+        <Button type="primary" onClick={() => update(id)}>
+          Update
+        </Button>
+      ),
     },
   ];
 
