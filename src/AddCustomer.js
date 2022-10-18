@@ -1,4 +1,4 @@
-import { Button, Col, Form, Input, Row } from "antd";
+import { Button, Col, Form, Input, Row ,message} from "antd";
 import axios from "axios";
 import React from "react";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +12,7 @@ function AddCustomer() {
         console.log("res", res.data);
       });
     navigate("/customers");
+    message.success("Added")
   };
   return (
     <div>

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, Form, Input,  } from "antd";
 import "antd/dist/antd.css";
 import MainPage from "./MainPage";
+import Customers from "./Customers";
 
 function App() {
   const [userLoginStatus, setuserLoginStatus] = useState(false);

@@ -1,4 +1,4 @@
-import { Button, Col, Form, Input, Row } from "antd";
+import { Button, Col, Form, Input, Row ,message} from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -21,6 +21,7 @@ function UpdateCustomer() {
         console.log("update: ", res.data);
       });
     navigate("/customers");
+    message.success("Updated")
   };
 
   return (
